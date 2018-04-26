@@ -10,15 +10,18 @@ import (
 	"strings"
 )
 
-const (
-	ImagePath = "/image/%s_%s.svg"
-)
-
 var (
 	validateCustomers = "false"
 	customersURL      = ""
 	user              = ""
 	repo              = ""
+	ImageUrls         = map[string]string{
+		"failure_BUILD.svg":  "https://raw.githubusercontent.com/s8sg/of_badge_gen/master/assets/image/failure_BUILD.svg",
+		"failure_DEPLOY.svg": "https://raw.githubusercontent.com/s8sg/of_badge_gen/master/assets/image/failure_DEPLOY.svg",
+		"pending_BUILD.svg":  "https://raw.githubusercontent.com/s8sg/of_badge_gen/master/assets/image/pending_BUILD.svg",
+		"pending_DEPLOY.svg": "https://raw.githubusercontent.com/s8sg/of_badge_gen/master/assets/image/pending_DEPLOY.svg",
+		"success_DEPLOY.svg": "https://raw.githubusercontent.com/s8sg/of_badge_gen/master/assets/image/success.svg",
+	}
 )
 
 // Handle a serverless request
@@ -46,7 +49,13 @@ func getBadge(query url.Values) ([]byte, error) {
 	// https://0341c281.ngrok.io/function/s8sg-of_badge_gen?user=s8sg&repo=regex_go&branch=master
 
 	user := query.Get("user")
+	if user == "" {
+		return nil, fmt.Errorf("github <user> value cant be empty")
+	}
 	repo := query.Get("repo")
+	if repo == "" {
+		return nil, fmt.Errorf("github <repo> value cant be empty")
+	}
 	branch := query.Get("branch")
 	if branch == "" {
 		branch = "master"
@@ -61,11 +70,27 @@ func getBadge(query url.Values) ([]byte, error) {
 		return nil, fmt.Errorf("failed to get commit status, error: %s", cerr.Error())
 	}
 
-	imagePath := fmt.Sprintf(ImagePath, commitStatus.State, commitStatus.Statuses[0].Context)
-	imageContent, ierr := ioutil.ReadFile(imagePath)
-	if ierr != nil {
-		return nil, fmt.Errorf("failed to read image file %s, error: %s", imagePath, ierr.Error())
+	imageUrl := ImageUrls[fmt.Sprintf("%s_%s.svg", commitStatus.State, commitStatus.Statuses[0].Context)]
+	c := http.Client{}
+
+	httpReq, _ := http.NewRequest(http.MethodGet, imageUrl, nil)
+	res, reqErr := c.Do(httpReq)
+	if reqErr != nil {
+		return nil, fmt.Errorf("failed to get image file %s, error: %s", imageUrl, reqErr.Error())
 	}
+	if res.StatusCode > 299 || res.StatusCode < 200 {
+		return nil, fmt.Errorf("failed to get image file %s, response code: %d", imageUrl, res.StatusCode)
+	}
+
+	var imageContent []byte = nil
+	if res.Body != nil {
+		defer res.Body.Close()
+
+		imageContent, _ = ioutil.ReadAll(res.Body)
+	} else {
+		return nil, fmt.Errorf("failed to get image file %s", imageUrl)
+	}
+
 	return imageContent, nil
 }
 

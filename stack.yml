@@ -4,6 +4,6 @@ provider:
 
 functions:
   of_badge_gen:
-    lang: dockerfile
+    lang: go
     handler: ./of_badge_gen
     image: s8sg/of_badge_gen
