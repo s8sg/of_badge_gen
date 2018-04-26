@@ -1,0 +1,9 @@
+provider:
+  name: faas
+  gateway: http://127.0.0.1:8080
+
+functions:
+  of_badge_gen:
+    lang: dockerfile
+    handler: ./of_badge_gen
+    image: s8sg/of_badge_gen
