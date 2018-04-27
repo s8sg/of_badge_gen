@@ -15,7 +15,7 @@ of_badge_gen is a faas function to generate status badge for function deployed i
 | [![failure_BUILD](https://img.shields.io/badge/openfaas--cloud-build%20fail-red.svg)](https://img.shields.io/badge/openfaas--cloud-build%20fail-red.svg) | Failed to Build |
 | [![pending_DEPLOY](https://img.shields.io/badge/openfaas--cloud-deploy%20pending-yellow.svg)](https://img.shields.io/badge/openfaas--cloud-deploy%20pending-yellow.svg) | Pending at Deploy |
 | [![failure_DEPLOY](https://img.shields.io/badge/openfaas--cloud-deploy%20fail-red.svg)](https://img.shields.io/badge/openfaas--cloud-deploy%20fail-red.svg) | Failed to Deploy |
-| [![failure_DEPLOY](https://img.shields.io/badge/openfaas--cloud-unknown-lightgrey.svg)](https://img.shields.io/badge/openfaas--cloud-unknown-lightgrey.svg) | Internal Issue |
+| [![Unknown](https://img.shields.io/badge/openfaas--cloud-unknown-lightgrey.svg)](https://img.shields.io/badge/openfaas--cloud-unknown-lightgrey.svg) | Internal Issue / Unknown  |
 
 #### Deploying in your openfaas-cloud
 
