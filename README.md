@@ -3,8 +3,6 @@
 [![OpenFaaS](https://img.shields.io/badge/openfaas-serverless-blue.svg)](https://www.openfaas.com)
 [![Status](http://0341c281.ngrok.io/function/of_badge_gen?user=s8sg&repo=of_badge_gen&branch=master)](http://0341c281.ngrok.io)
 
-openfaas live demo status : [![Status](http://git-cloud.openfaas.com:8080/function/s8sg-of_badge_gen?user=s8sg&repo=of_badge_gen&branch=master)](http://git-cloud.openfaas.com:8080/function/s8sg-of_badge_gen?user=s8sg&repo=of_badge_gen&branch=master)
-
 
 
 #### About
