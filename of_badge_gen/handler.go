@@ -21,6 +21,7 @@ var (
 		"pending_BUILD.svg":  "https://img.shields.io/badge/openfaas--cloud-build%20pending-yellow.svg",
 		"pending_DEPLOY.svg": "https://img.shields.io/badge/openfaas--cloud-deploy%20pending-yellow.svg",
 		"success_DEPLOY.svg": "https://img.shields.io/badge/openfaas--cloud-deployed-green.svg",
+		"unknown.svg":        "https://img.shields.io/badge/openfaas--cloud-unknown-lightgrey.svg",
 	}
 )
 
@@ -32,7 +33,8 @@ func Handle(req []byte) string {
 	}
 	badge, err := getBadge(m)
 	if err != nil {
-		log.Fatalf(err.Error())
+		fmt.Println(err.Error())
+		badge, _ = getImage(ImageUrls["unknown.svg"])
 	}
 	return string(badge)
 }
@@ -71,6 +73,11 @@ func getBadge(query url.Values) ([]byte, error) {
 	}
 
 	imageUrl := ImageUrls[fmt.Sprintf("%s_%s.svg", commitStatus.State, commitStatus.Statuses[0].Context)]
+
+	return getImage(imageUrl)
+}
+
+func getImage(imageUrl string) ([]byte, error) {
 	c := http.Client{}
 
 	httpReq, _ := http.NewRequest(http.MethodGet, imageUrl, nil)
