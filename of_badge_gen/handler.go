@@ -16,10 +16,10 @@ var (
 	user              = ""
 	repo              = ""
 	ImageUrls         = map[string]string{
-		"failure.svg": "https://img.shields.io/badge/openfaas--cloud-deploy%20fail-red.svg",
-		"pending.svg": "https://img.shields.io/badge/openfaas--cloud-deploy%20pending-yellow.svg",
-		"success.svg": "https://img.shields.io/badge/openfaas--cloud-deployed-green.svg",
-		"unknown.svg": "https://img.shields.io/badge/openfaas--cloud-unknown-lightgrey.svg",
+		"failure.svg": "https://raw.githubusercontent.com/s8sg/of_badge_gen/new_status/assets/image/failure.svg",
+		"pending.svg": "https://raw.githubusercontent.com/s8sg/of_badge_gen/new_status/assets/image/pending.svg",
+		"success.svg": "https://raw.githubusercontent.com/s8sg/of_badge_gen/new_status/assets/image/success.svg",
+		"unknown.svg": "https://raw.githubusercontent.com/s8sg/of_badge_gen/new_status/assets/image/unknown.svg",
 	}
 )
 
