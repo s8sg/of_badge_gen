@@ -4,7 +4,6 @@
 [![Status](http://7d86c827.ngrok.io/function/of_badge_gen?user=s8sg&repo=of_badge_gen&branch=master)](http://7d86c827.ngrok.io)
 
 
-
 #### About
 of_badge_gen is a faas function to generate status badge for function deployed in opendfaas-cloud 
 
