@@ -16,12 +16,10 @@ var (
 	user              = ""
 	repo              = ""
 	ImageUrls         = map[string]string{
-		"failure_BUILD.svg":  "https://img.shields.io/badge/openfaas--cloud-build%20fail-red.svg",
-		"failure_DEPLOY.svg": "https://img.shields.io/badge/openfaas--cloud-deploy%20fail-red.svg",
-		"pending_BUILD.svg":  "https://img.shields.io/badge/openfaas--cloud-build%20pending-yellow.svg",
-		"pending_DEPLOY.svg": "https://img.shields.io/badge/openfaas--cloud-deploy%20pending-yellow.svg",
-		"success_DEPLOY.svg": "https://img.shields.io/badge/openfaas--cloud-deployed-green.svg",
-		"unknown.svg":        "https://img.shields.io/badge/openfaas--cloud-unknown-lightgrey.svg",
+		"failure.svg": "https://img.shields.io/badge/openfaas--cloud-deploy%20fail-red.svg",
+		"pending.svg": "https://img.shields.io/badge/openfaas--cloud-deploy%20pending-yellow.svg",
+		"success.svg": "https://img.shields.io/badge/openfaas--cloud-deployed-green.svg",
+		"unknown.svg": "https://img.shields.io/badge/openfaas--cloud-unknown-lightgrey.svg",
 	}
 )
 
@@ -72,7 +70,7 @@ func getBadge(query url.Values) ([]byte, error) {
 		return nil, fmt.Errorf("failed to get commit status, error: %s", cerr.Error())
 	}
 
-	imageUrl := ImageUrls[fmt.Sprintf("%s_%s.svg", commitStatus.State, commitStatus.Statuses[0].Context)]
+	imageUrl := ImageUrls[fmt.Sprintf("%s.svg", commitStatus.State)]
 
 	return getImage(imageUrl)
 }
